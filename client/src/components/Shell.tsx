@@ -31,19 +31,6 @@ export const NAV = [
   { href: "/profile", label: "Profile & Settings", icon: Settings },
 ];
 
-export function Logo({ small }: { small?: boolean }) {
-  return (
-    <Link href="/" className="flex items-center group shrink-0" data-testid="link-logo" aria-label="IPL Auction Arena home">
-      <img
-        src="/brand/brand-cutout.svg"
-        alt="IPL Auction Arena — Made with love by Abhi Parakh"
-        className={small ? "h-11 w-16 object-contain object-left" : "h-14 w-36 sm:w-44 object-contain object-left"}
-        draggable={false}
-      />
-    </Link>
-  );
-}
-
 function DecorLayer() {
   const parts = Array.from({ length: 14 }, (_, i) => ({ left: (i * 37) % 100, dur: 14 + ((i * 7) % 12), delay: -((i * 5) % 20), size: 2 + (i % 3) }));
   return (
@@ -114,7 +101,7 @@ export function Shell({ children, bare }: { children: ReactNode; bare?: boolean 
       <div className="flex min-h-dvh app-content">
         <aside className={cn("sidebar-decor fixed inset-y-0 left-0 z-50 w-64 glass-strong border-r border-white/5 transform transition-transform lg:translate-x-0 lg:sticky lg:top-0 lg:h-dvh", open ? "translate-x-0" : "-translate-x-full")}>
           <div className="relative flex items-center justify-between px-5 h-16 border-b border-white/5">
-            <Logo />
+            <Link href="/" className="font-display text-sm font-bold tracking-[0.18em] text-white" aria-label="IPL Auction Arena home">IPL AUCTION ARENA</Link>
             <TeamRibbon className="absolute bottom-0 left-5 right-5 !h-[2px] opacity-60" />
             <button className="lg:hidden p-1" onClick={() => setOpen(false)} aria-label="Close menu"><X className="h-5 w-5" /></button>
           </div>
@@ -147,8 +134,7 @@ export function Shell({ children, bare }: { children: ReactNode; bare?: boolean 
         <div className="flex-1 min-w-0">
           <header className="lg:hidden sticky top-0 z-30 h-14 glass-strong border-b border-white/5 flex items-center px-4 gap-3">
             <button onClick={() => setOpen(true)} aria-label="Open menu" data-testid="button-menu"><Menu className="h-5 w-5" /></button>
-            <Logo small />
-            <span className="font-display text-sm tracking-wider">IPL AUCTION ARENA</span>
+            <span className="font-display text-sm font-bold tracking-[0.18em]">IPL AUCTION ARENA</span>
           </header>
           {!bare && <ChampionTicker />}
           <main className={cn(bare ? "" : "px-4 md:px-8 py-6 md:py-8 max-w-[1500px] mx-auto")}>{children}</main>
