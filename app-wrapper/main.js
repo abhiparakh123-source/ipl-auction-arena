@@ -1,4 +1,5 @@
 const { app, BrowserWindow, shell } = require('electron');
+const path = require('node:path');
 const GAME_URL = 'https://iplauctionbyabhi.onrender.com';
 
 function createWindow() {
@@ -9,6 +10,7 @@ function createWindow() {
     minHeight: 600,
     autoHideMenuBar: true,
     title: 'IPL Auction Arena',
+    icon: path.join(__dirname, 'assets', 'icon.png'),
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,

@@ -8,6 +8,8 @@
   "scripts": {
     "start": "electron .",
     "build:win": "electron-builder --win nsis",
+    "prepare:icons": "node scripts/generate-icons.js",
+    "prepare:android-icons": "node scripts/generate-icons.js android",
     "cap:sync": "cap sync android",
     "cap:open": "cap open android"
   },
@@ -18,14 +20,28 @@
   },
   "dependencies": {
     "@capacitor/android": "^7.4.3",
-    "@capacitor/core": "^7.4.3"
+    "@capacitor/core": "^7.4.3",
+    "sharp": "^0.34.3",
+    "png-to-ico": "^2.1.8"
   },
   "build": {
     "appId": "com.iplauctionarena.app",
     "productName": "IPL Auction Arena",
-    "directories": { "output": "dist" },
-    "files": ["main.js", "package.json"],
-    "win": { "target": ["nsis"] },
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "package.json",
+      "assets/icon.png",
+      "assets/icon.ico"
+    ],
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [
+        "nsis"
+      ]
+    },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
