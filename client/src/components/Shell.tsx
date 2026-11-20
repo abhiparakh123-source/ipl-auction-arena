@@ -8,6 +8,8 @@ import {
   Gavel, LayoutGrid, Users, BrainCircuit, BarChart3, Shield, PlayCircle, Trophy, TrendingUp, Award, Telescope, UsersRound, Medal, Settings, Menu, X, Home, Sparkles, Briefcase, Crown,
 } from "lucide-react";
 
+export function Logo(_props: { small?: boolean }) { return null; }
+
 const GROUPS: Record<string, string> = { "/": "Play", "/players": "Scout and analyse", "/franchises": "Compete", "/hall-of-fame": "Legacy", "/friends": "Your club" };
 
 export const NAV = [
