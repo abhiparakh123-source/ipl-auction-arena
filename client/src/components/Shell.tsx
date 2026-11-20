@@ -35,7 +35,7 @@ export function Logo({ small }: { small?: boolean }) {
   return (
     <Link href="/" className="flex items-center group shrink-0" data-testid="link-logo" aria-label="IPL Auction Arena home">
       <img
-        src="/brand/brand-cutout.png"
+        src="/brand/brand-cutout.svg"
         alt="IPL Auction Arena — Made with love by Abhi Parakh"
         className={small ? "h-11 w-16 object-contain object-left" : "h-14 w-36 sm:w-44 object-contain object-left"}
         draggable={false}

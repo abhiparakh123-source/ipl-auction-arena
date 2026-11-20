@@ -40,6 +40,7 @@ export default function Home() {
         <div className="absolute inset-0 grid-floor opacity-40 pointer-events-none" />
         <div className="relative grid lg:grid-cols-[1.2fr_1fr] gap-8 items-center">
           <div>
+            <img src="/brand/brand-cutout.svg" alt="IPL Auction Arena — Made with love by Abhi Parakh" className="w-full max-w-[430px] h-auto max-h-[230px] object-contain object-left mb-5" />
             <div className="text-[11px] uppercase tracking-[0.3em] text-cyan-300/90 mb-3">Welcome back, {me.username}</div>
             <h1 className="font-display text-4xl md:text-6xl font-semibold leading-[1.02]">
               Build the franchise.<br /><span className="gold-text">Own the hammer.</span>

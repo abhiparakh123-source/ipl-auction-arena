@@ -178,7 +178,7 @@ export function SiteFooter() {
       <div className="absolute inset-0 footer-glow pointer-events-none" />
       <div className="relative max-w-[1500px] mx-auto px-4 md:px-8 py-8 grid gap-6 md:grid-cols-[1.2fr_1fr_1fr] items-start">
         <div className="flex items-start gap-4">
-          <CricketBall size={54} className="ball-spin shrink-0" />
+          <img src="/brand/brand-round.svg" alt="" className="h-14 w-14 shrink-0 object-contain" />
           <div>
             <div className="font-display text-lg font-semibold">IPL Auction Arena</div>
             <p className="text-xs text-white/55 mt-1 max-w-sm">A fan-made auction and franchise game. Team marks are original monograms, not official logos. Match results and commentary in the game are simulated.</p>
@@ -201,7 +201,7 @@ export function SiteFooter() {
         <path d="M0 40 L0 28 Q360 6 720 14 Q1080 6 1440 28 L1440 40 Z" fill="#0f5c35" />
         <path d="M0 30 Q360 10 720 18 Q1080 10 1440 30" fill="none" stroke="#fff" strokeOpacity=".5" strokeDasharray="4 6" />
       </svg>
-      <div className="relative border-t border-white/5 px-4 py-5 text-center text-base sm:text-lg font-semibold tracking-wide text-white/75">
+      <div className="relative border-t border-white/5 px-4 py-4 text-center text-xs sm:text-sm font-medium tracking-wide text-white/60">
         Made with <span className="text-rose-400">❤️</span> by Abhi Parakh
       </div>
     </footer>
