@@ -19,7 +19,14 @@ export default function AuthGate() {
   return (
     <div className="app-bg grid-floor min-h-dvh grid place-items-center p-4">
       <div className="w-full max-w-md">
-        <div className="flex justify-center mb-6"><Logo /></div>
+        <div className="flex justify-center mb-3">
+          <img
+            src="/brand/brand-cutout.svg"
+            alt="IPL Auction Arena"
+            className="h-28 w-56 object-contain"
+            draggable={false}
+          />
+        </div>
         <div className="glass holo rounded-3xl p-6 md:p-8">
           <h1 className="font-display text-3xl font-semibold text-center">Enter the Arena</h1>
           <p className="text-sm text-muted-foreground text-center mt-2 mb-6">Pick an owner name to play now, or create an account to keep your franchise history, friends and trophies.</p>
