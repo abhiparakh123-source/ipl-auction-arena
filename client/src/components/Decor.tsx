@@ -201,6 +201,9 @@ export function SiteFooter() {
         <path d="M0 40 L0 28 Q360 6 720 14 Q1080 6 1440 28 L1440 40 Z" fill="#0f5c35" />
         <path d="M0 30 Q360 10 720 18 Q1080 10 1440 30" fill="none" stroke="#fff" strokeOpacity=".5" strokeDasharray="4 6" />
       </svg>
+      <div className="relative border-t border-white/5 px-4 py-4 text-center text-xs tracking-wide text-white/50">
+        Made with <span className="text-rose-400">❤️</span> by Abhi Parakh
+      </div>
     </footer>
   );
 }
