@@ -1,0 +1,36 @@
+{
+  "name": "ipl-auction-arena-app",
+  "version": "1.0.0",
+  "description": "Desktop and Android wrapper for IPL Auction Arena",
+  "main": "main.js",
+  "author": "IPL Auction Arena",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "build:win": "electron-builder --win nsis",
+    "cap:sync": "cap sync android",
+    "cap:open": "cap open android"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.4.3",
+    "electron": "^38.2.0",
+    "electron-builder": "^26.0.12"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.4.3",
+    "@capacitor/core": "^7.4.3"
+  },
+  "build": {
+    "appId": "com.iplauctionarena.app",
+    "productName": "IPL Auction Arena",
+    "directories": { "output": "dist" },
+    "files": ["main.js", "package.json"],
+    "win": { "target": ["nsis"] },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
