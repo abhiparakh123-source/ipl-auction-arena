@@ -33,23 +33,13 @@ export const NAV = [
 
 export function Logo({ small }: { small?: boolean }) {
   return (
-    <Link href="/" className="flex items-center gap-2.5 group" data-testid="link-logo">
-      <svg width={small ? 30 : 36} height={small ? 30 : 36} viewBox="0 0 40 40" aria-label="IPL Auction Arena">
-        <defs>
-          <linearGradient id="lg-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#FFE7A3" /><stop offset=".5" stopColor="#F5C542" /><stop offset="1" stopColor="#9C6B1E" /></linearGradient>
-          <linearGradient id="lg-cy" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stopColor="#2E6BFF" /><stop offset="1" stopColor="#22E4FF" /></linearGradient>
-        </defs>
-        <path d="M20 2 L37 11 V29 L20 38 L3 29 V11 Z" fill="none" stroke="url(#lg-cy)" strokeWidth="2" />
-        <rect x="11" y="13" width="15" height="6" rx="1.5" transform="rotate(-35 18 16)" fill="url(#lg-gold)" />
-        <rect x="18" y="17" width="3" height="14" rx="1.5" transform="rotate(-35 19 24)" fill="url(#lg-gold)" />
-        <rect x="10" y="29" width="18" height="3" rx="1.5" fill="#22E4FF" opacity=".8" />
-      </svg>
-      {!small && (
-        <div className="leading-none">
-          <div className="font-display text-[15px] font-bold tracking-wider">IPL AUCTION</div>
-          <div className="font-display text-[11px] tracking-[0.42em] text-cyan-300/90">ARENA</div>
-        </div>
-      )}
+    <Link href="/" className="flex items-center group shrink-0" data-testid="link-logo" aria-label="IPL Auction Arena home">
+      <img
+        src="/brand/brand-cutout.png"
+        alt="IPL Auction Arena — Made with love by Abhi Parakh"
+        className={small ? "h-11 w-16 object-contain object-left" : "h-14 w-36 sm:w-44 object-contain object-left"}
+        draggable={false}
+      />
     </Link>
   );
 }
