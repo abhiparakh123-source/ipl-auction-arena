@@ -178,7 +178,6 @@ export function SiteFooter() {
       <div className="absolute inset-0 footer-glow pointer-events-none" />
       <div className="relative max-w-[1500px] mx-auto px-4 md:px-8 py-8 grid gap-6 md:grid-cols-[1.2fr_1fr_1fr] items-start">
         <div className="flex items-start gap-4">
-          <img src="/brand/brand-round.svg" alt="" className="h-14 w-14 shrink-0 object-contain" />
           <div>
             <div className="font-display text-lg font-semibold">IPL Auction Arena</div>
             <p className="text-xs text-white/55 mt-1 max-w-sm">A fan-made auction and franchise game. Team marks are original monograms, not official logos. Match results and commentary in the game are simulated.</p>

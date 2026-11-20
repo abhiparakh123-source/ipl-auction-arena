@@ -19,7 +19,6 @@ jobs:
         with:
           node-version: 20
       - run: npm install
-      - run: npm run prepare:icons
       - run: npm run build:win
       - uses: actions/upload-artifact@v4
         with:
@@ -52,7 +51,6 @@ jobs:
           mkdir -p www
           printf '<!doctype html><html><head><meta charset="utf-8"><title>IPL Auction Arena</title></head><body>Loading IPL Auction Arena...</body></html>' > www/index.html
       - run: npx cap add android
-      - run: npm run prepare:android-icons
       - run: npx cap sync android
       - name: Build debug APK
         run: |
