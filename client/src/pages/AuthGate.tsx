@@ -47,6 +47,9 @@ export default function AuthGate() {
           </Tabs>
           {err && <div className="mt-3 text-sm text-rose-300" data-testid="text-auth-error">{err}</div>}
         </div>
+        <div className="mt-7 text-center text-lg sm:text-xl font-semibold tracking-wide text-white/75">
+          Made with <span className="text-rose-400">❤️</span> by Abhi Parakh
+        </div>
       </div>
     </div>
   );
