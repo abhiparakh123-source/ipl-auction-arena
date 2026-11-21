@@ -273,7 +273,7 @@ function Upcoming() {
 export default function AuctionStage() {
   const { st, look, conn, myTeam, isHost } = useRoom();
   const offset = conn.store.use((s) => s.offset);
-  const now = useNow(100);
+  const now = useNow(250);
   const lot = st.lot;
   const p = look(lot?.pid);
   const [strike, setStrike] = useState(0);

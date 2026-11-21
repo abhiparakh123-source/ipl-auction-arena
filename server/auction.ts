@@ -319,7 +319,17 @@ export class Room {
     this.s.settings = sanitizeSettings(this.s.mode, m.patch || {}, this.s.settings);
     if (typeof m.name === "string" && m.name.trim()) this.s.name = m.name.trim().slice(0, 60);
     if ((this.s.mode === "custom" || this.s.settings.format !== "ipl") && (prevCount !== this.s.settings.teamCount || m.patch?.customNames)) this.buildTeams();
-    else for (const t of this.s.teams) { t.purse = this.s.settings.purse; t.startPurse = this.s.settings.purse; t.rtmLeft = this.s.settings.rtm ? this.s.settings.rtmCards : 0; if (!t.ownerId) t.ai = this.s.settings.aiFill ? (t.ai || "balanced") : null; }
+    else for (const t of this.s.teams) {
+      t.purse = this.s.settings.purse;
+      t.startPurse = this.s.settings.purse;
+      t.rtmLeft = this.s.settings.rtm ? this.s.settings.rtmCards : 0;
+      // Only change franchise AI assignments when the host explicitly changes
+      // the global AI-fill switch. Per-franchise "No AI" choices must persist
+      // through unrelated settings edits.
+      if (!t.ownerId && Object.prototype.hasOwnProperty.call(m.patch || {}, "aiFill")) {
+        t.ai = this.s.settings.aiFill ? (t.ai || "balanced") : null;
+      }
+    }
     audit(this.s.code, userId, "settings", m.patch);
     this.changed();
   }
@@ -360,7 +370,7 @@ export class Room {
     const notReady = s.members.filter((m) => m.teamId && m.userId !== s.hostId && !m.ready);
     if (notReady.length) return { error: `Waiting for: ${notReady.map((m) => m.username).join(", ")} to ready up` };
     this.enforceControl();
-    for (const t of s.teams) if (!t.ownerId && !t.ai) t.ai = "balanced";
+    // Respect each franchise AI selection; null explicitly means no AI.
     audit(s.code, userId, "start", { teams: s.teams.map((t) => [t.id, t.ownerId || "ai:" + t.ai]) });
     if (s.universe === "real2026") return this.startReal2026();
     // legends: era-specific ratings
