@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from "react";
-import { api, setToken, API_BASE, queryClient } from "./queryClient";
+import { api, setToken, getToken, getVisitorId, API_BASE, queryClient } from "./queryClient";
 
 export function createStore<T>(initial: T) {
   let state = initial;
@@ -79,7 +79,7 @@ export class RoomConn {
   open() {
     if (this.closed) return;
     this.store.set({ status: "connecting" });
-    const ws = new WebSocket(`${wsUrl()}?token=${encodeURIComponent(this.token || "")}`);
+    const ws = new WebSocket(`${wsUrl()}?token=${encodeURIComponent(this.token || "")}&visitor=${encodeURIComponent(getVisitorId())}`);
     this.ws = ws;
     ws.onopen = () => {
       this.retry = 0;
