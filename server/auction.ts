@@ -154,9 +154,10 @@ export class Room {
     const pers = Object.keys(AI_PERSONALITIES) as Personality[];
     s.teams = list.map((f, i) => {
       const c = st.customNames?.[f.id];
+      const previous = s.teams.find((t) => t.id === f.id);
       return {
         id: f.id, name: c?.name || f.name, short: c?.short || f.short, primary: c?.primary || f.primary, secondary: c?.secondary || f.secondary,
-        ownerId: s.teams.find((t) => t.id === f.id)?.ownerId || null, ai: st.aiFill ? pers[i % pers.length] : null, purse: st.purse, startPurse: st.purse, squad: [], rtmLeft: st.rtm ? st.rtmCards : 0,
+        ownerId: previous?.ownerId || null, ai: previous ? previous.ai : (st.aiFill ? pers[i % pers.length] : null), purse: st.purse, startPurse: st.purse, squad: [], rtmLeft: st.rtm ? st.rtmCards : 0,
         lineup: null, listed: [], retainPicks: null, retentionDone: false,
       };
     });
