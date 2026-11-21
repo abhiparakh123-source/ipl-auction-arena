@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from "react";
-import { api, setToken, getToken, getVisitorId, API_BASE, queryClient } from "./queryClient";
+import { api, setToken, getVisitorId, API_BASE, queryClient } from "./queryClient";
 
 export function createStore<T>(initial: T) {
   let state = initial;
