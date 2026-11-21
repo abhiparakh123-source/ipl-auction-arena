@@ -13,7 +13,7 @@ export function attachWS(server: Server) {
   wss.on("connection", (ws: WebSocket, req: IncomingMessage) => {
     const url = new URL(req.url || "/", "http://x");
     let user = userByToken(url.searchParams.get("token") || undefined);
-    const visitor = req.headers["x-visitor-id"] as string | undefined;
+    const visitor = (req.headers["x-visitor-id"] as string | undefined) || url.searchParams.get("visitor") || undefined;
     if (!user && visitor) {
       const v = db.prepare("SELECT user_id FROM visitors WHERE visitor=?").get(visitor) as { user_id: string } | undefined;
       if (v) user = getUser(v.user_id);

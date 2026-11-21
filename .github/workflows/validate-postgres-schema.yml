@@ -1,0 +1,87 @@
+name: Validate Supabase PostgreSQL schema
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [fix/persistent-auth-and-database]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  postgres-schema:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ipl_arena_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d ipl_arena_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      PGHOST: localhost
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: ipl_arena_test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes postgresql-client
+      - name: Create Supabase-compatible browser roles
+        run: |
+          psql -v ON_ERROR_STOP=1 -c "CREATE ROLE anon NOLOGIN"
+          psql -v ON_ERROR_STOP=1 -c "CREATE ROLE authenticated NOLOGIN"
+      - name: Apply initial schema and privilege hardening
+        run: |
+          psql -v ON_ERROR_STOP=1 -f supabase/migrations/20261121061209_initial_ipl_arena_schema.sql
+          psql -v ON_ERROR_STOP=1 -f supabase/migrations/20261121061726_revoke_browser_role_table_privileges.sql
+      - name: Verify tables, row-level security and browser-role isolation
+        run: |
+          psql -v ON_ERROR_STOP=1 <<'SQL'
+          DO $$
+          DECLARE
+            expected_tables integer := 18;
+            actual_tables integer;
+            unprotected_tables integer;
+            browser_grants integer;
+          BEGIN
+            SELECT count(*) INTO actual_tables
+            FROM information_schema.tables
+            WHERE table_schema = 'public' AND table_type = 'BASE TABLE';
+            IF actual_tables <> expected_tables THEN
+              RAISE EXCEPTION 'Expected % application tables, found %', expected_tables, actual_tables;
+            END IF;
+
+            SELECT count(*) INTO unprotected_tables
+            FROM pg_class c
+            JOIN pg_namespace n ON n.oid = c.relnamespace
+            WHERE n.nspname = 'public' AND c.relkind = 'r'
+              AND c.relname IN (
+                'users','tokens','visitors','friends','invites','rooms','room_members','audit',
+                'achievements','player_overrides','custom_players','watchlist','leagues','scenarios',
+                'careers','custom_tournaments','matches','game_records'
+              )
+              AND NOT c.relrowsecurity;
+            IF unprotected_tables <> 0 THEN
+              RAISE EXCEPTION '% application tables do not have RLS enabled', unprotected_tables;
+            END IF;
+
+            SELECT count(*) INTO browser_grants
+            FROM information_schema.role_table_grants
+            WHERE grantee IN ('anon','authenticated')
+              AND table_schema = 'public'
+              AND privilege_type IN ('SELECT','INSERT','UPDATE','DELETE','TRUNCATE','REFERENCES','TRIGGER');
+            IF browser_grants <> 0 THEN
+              RAISE EXCEPTION 'Browser roles unexpectedly have % table grants', browser_grants;
+            END IF;
+          END $$;
+          SQL
