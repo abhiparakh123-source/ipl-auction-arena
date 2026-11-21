@@ -16,7 +16,7 @@ export default function AuthGate() {
     try { signedIn(await api("POST", url, body)); } catch (e: any) { setErr(e.message); } finally { setBusy(false); }
   };
   return (
-    <div className="app-bg grid-floor min-h-dvh grid place-items-center p-4">
+    <div className="app-bg grid-floor relative min-h-dvh grid place-items-center p-4">
       <div className="w-full max-w-md">
 <div className="glass holo rounded-3xl p-6 md:p-8">
           <h1 className="font-display text-3xl font-semibold text-center">Enter the Arena</h1>
@@ -46,6 +46,7 @@ export default function AuthGate() {
           {err && <div className="mt-3 text-sm text-rose-300" data-testid="text-auth-error">{err}</div>}
         </div>
 </div>
+      <div className="absolute inset-x-0 bottom-4 text-center text-xs font-medium tracking-wide text-white/60">Made with <span className="text-rose-400">❤️</span> by Abhi Parakh</div>
     </div>
   );
 }
